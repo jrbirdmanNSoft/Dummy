@@ -11,7 +11,7 @@ pool:
 
 variables:
   # Azure service connection established during pipeline creation
-  azureSubscription: 451251a2-00b2-4baa-83c5-4cfdc810a27f
+  azureSubscription: nSoftAzureConnection
   appName: DummyFunction6789
   # Agent VM image name
   vmImageName: 'windows-latest'
