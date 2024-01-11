@@ -17,7 +17,8 @@ variables:
   vmImageName: 'windows-2019'
 
   # Working Directory
-  workingDirectory: './FunctionApp1'
+  workingDirectory: '.'
+  # workingDirectory: './FunctionApp1'
 
 stages:
 - stage: Build
@@ -30,13 +31,25 @@ stages:
       vmImage: $(vmImageName)
 
     steps:
-    - task: DotNetCoreCLI@2
-      displayName: Build
-      inputs:
-        command: 'build'
-        projects: |
-          $(workingDirectory)/*.csproj
-        arguments: --output $(System.DefaultWorkingDirectory)/publish_output --configuration Release
+  - task: UseDotNet@2
+    displayName: 'Install .NET Core SDK'
+    inputs:
+      version: 6.0.x
+      performMultiLevelLookup: true
+      includePreviewVersions: true # Required for preview versions
+
+  - task: DotNetCoreCLI@2
+    inputs:
+      command: 'restore'
+      projects: '**/*.sln'
+    displayName: 'Restore Nuget Packages'
+
+  - task: DotNetCoreCLI@2
+    displayName: Build
+    inputs:
+      command: 'build'
+      projects: $(workingDirectory)/*.sln'
+      arguments: --output $(System.DefaultWorkingDirectory)/publish_output --configuration Release --no-restore
 
     - task: ArchiveFiles@2
       displayName: 'Archive files'
