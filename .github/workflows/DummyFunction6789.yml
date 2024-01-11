@@ -42,5 +42,5 @@ jobs:
       uses: Azure/functions-action@v1
       with:
         app-name: ${{ env.AZURE_FUNCTIONAPP_NAME }}
-        publish-profile: ${{ secrets.DummyFunction6789_3B7B }}
+        publish-profile: ${{ secrets.DummyFunction6789_E96A }}
         package: ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
