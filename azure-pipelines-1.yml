@@ -18,7 +18,7 @@ variables:
 
   # Working Directory
   workingDirectory: '.'
-  # workingDirectory: './FunctionApp1'
+  #workingDirectory: './FunctionApp1'
 
 stages:
 - stage: Build
@@ -48,7 +48,7 @@ stages:
         displayName: Build
         inputs:
           command: 'build'
-          projects: $(workingDirectory)/**/*.sln'
+          projects: '**/*.sln'
           arguments: --output $(System.DefaultWorkingDirectory)/publish_output --configuration Release --no-restore
     
       - task: ArchiveFiles@2
