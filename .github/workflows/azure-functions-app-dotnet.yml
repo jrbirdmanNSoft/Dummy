@@ -1,6 +1,6 @@
 # This workflow will build a .NET Core project and deploy it to an Azure Functions App on Windows or Linux when a commit is pushed to your default branch.
 #
-# This workflow assumes you have already created the target Azure Functions app.
+# This workflow assumes you have already created the target Azure Functions app. 
 # For instructions see https://learn.microsoft.com/en-us/azure/azure-functions/create-first-function-vs-code-csharp?tabs=in-process 
 #
 # To configure this workflow:
