@@ -48,7 +48,7 @@ stages:
         displayName: Build
         inputs:
           command: 'build'
-          projects: $(workingDirectory)/*.sln'
+          projects: $(workingDirectory)/**/*.sln'
           arguments: --output $(System.DefaultWorkingDirectory)/publish_output --configuration Release --no-restore
     
       - task: ArchiveFiles@2
