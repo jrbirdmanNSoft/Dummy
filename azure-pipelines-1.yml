@@ -30,38 +30,38 @@ stages:
     pool:
       vmImage: $(vmImageName)
 
-steps:
-  - task: UseDotNet@2
-    displayName: 'Install .NET Core SDK'
-    inputs:
-      version: 6.0.x
-      performMultiLevelLookup: true
-      includePreviewVersions: true # Required for preview versions
-
-  - task: DotNetCoreCLI@2
-    inputs:
-      command: 'restore'
-      projects: '**/*.sln'
-    displayName: 'Restore Nuget Packages'
-
-  - task: DotNetCoreCLI@2
-    displayName: Build
-    inputs:
-      command: 'build'
-      projects: $(workingDirectory)/*.sln'
-      arguments: --output $(System.DefaultWorkingDirectory)/publish_output --configuration Release --no-restore
-
-  - task: ArchiveFiles@2
-    displayName: 'Archive files'
-    inputs:
-      rootFolderOrFile: '$(System.DefaultWorkingDirectory)/publish_output'
-      includeRootFolder: false
-      archiveType: zip
-      archiveFile: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
-      replaceExistingArchive: true
-
-  - publish: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
-    artifact: drop
+    steps:
+      - task: UseDotNet@2
+        displayName: 'Install .NET Core SDK'
+        inputs:
+          version: 6.0.x
+          performMultiLevelLookup: true
+          includePreviewVersions: true # Required for preview versions
+    
+      - task: DotNetCoreCLI@2
+        inputs:
+          command: 'restore'
+          projects: '**/*.sln'
+        displayName: 'Restore Nuget Packages'
+    
+      - task: DotNetCoreCLI@2
+        displayName: Build
+        inputs:
+          command: 'build'
+          projects: $(workingDirectory)/*.sln'
+          arguments: --output $(System.DefaultWorkingDirectory)/publish_output --configuration Release --no-restore
+    
+      - task: ArchiveFiles@2
+        displayName: 'Archive files'
+        inputs:
+          rootFolderOrFile: '$(System.DefaultWorkingDirectory)/publish_output'
+          includeRootFolder: false
+          archiveType: zip
+          archiveFile: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
+          replaceExistingArchive: true
+    
+      - publish: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
+        artifact: drop
 
 - stage: Deploy
   displayName: Deploy stage
