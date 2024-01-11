@@ -41,14 +41,14 @@ stages:
       - task: DotNetCoreCLI@2
         inputs:
           command: 'restore'
-          projects: '**/*.sln'
+          projects: '$(workingDirectory)/FunctionApp1/*.csproj'
         displayName: 'Restore Nuget Packages'
     
       - task: DotNetCoreCLI@2
         displayName: Build
         inputs:
           command: 'build'
-          projects: '**/*.sln'
+          projects: '$(workingDirectory)/FunctionApp1/*.csproj'
           arguments: --output $(System.DefaultWorkingDirectory)/publish_output --configuration Release --no-restore
     
       - task: ArchiveFiles@2
